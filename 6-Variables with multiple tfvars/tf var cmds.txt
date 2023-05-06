@@ -1,0 +1,33 @@
+## formatting a tf file
+
+terraform fmt
+
+## cmd line vars
+
+terrafor plan/apply -var="instancetype=t2.micro"
+
+
+## passing tf variables via file 
+
+create a file with "parameter/variable=value" and name it ".auto.tfvars" which is different from the "variable.tf" file
+    ........run terraform plan -var-file=".auto.tfvars"(if adhoc change is required via terminal)........
+
+
+## passing vars via env variables
+
+export TF_VAR_instancetype=t2.micro   &   to check if it was done successfully, use echo $TF_VAR_instancetype  OR type "env" to see all the env variables.
+
+and to undo this: unset TF_VAR_instancetype
+
+
+
+###how to run tf when there are "muliple .tfvars" files in a folder(which represent diff environments eg dev, prod, test)
+
+1) create workspaces in addition to the default terraform workspace depending on the number of .tfvars files
+  a. run "terraform workspace" to see the various subcommands like "delete, new, select show, list" 
+  b. e.g run terraform workspace new test (this is to create and automatically shift to the newly created workspace named test) 
+  c. Also run terraform workspace new dev (this is to create and automatically shift to the newly created workspace named dev)
+  d. to then list workspaces use "terraform workspace list test,dev...etc"  and use "terraform workspace select test,dev...." to select the desired workspace
+
+
+2) terraform plan/apply --var-file=variables/dev.tfvars. (this is bc tf can't read folders so we have to explicitly pass the intended file pass)
