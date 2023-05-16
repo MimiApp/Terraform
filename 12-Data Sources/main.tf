@@ -14,7 +14,9 @@ data "aws_ami" "app_ami" {
   }
 }
 
-
+output "amiid" {
+  value = data.aws_ami.app_ami.id
+}
 
 #below is just an example which doesn't work
 #data "aws_ami" "app_ami" {
